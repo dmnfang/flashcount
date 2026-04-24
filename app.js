@@ -25,6 +25,7 @@ let distractors  = 1;
 let rangeMin     = 1;
 let rangeMax     = 10;
 let speed        = 'slow';
+let style        = 'basic';
 let sequence     = [];
 let seqPos       = 0;
 let targetCount  = 0;
@@ -77,6 +78,7 @@ function setupChips(rowId, callback) {
 
 setupChips('distractor-chips', val => distractors = parseInt(val));
 setupChips('speed-chips',      val => speed = val);
+setupChips('style-chips',      val => style = val);
 
 document.querySelectorAll('#range-chips .chip').forEach(chip => {
   chip.addEventListener('click', () => {
@@ -185,6 +187,9 @@ function runCountdown() {
 // ── Game ──────────────────────────────────────────────────
 function startGame() {
   showScreen('screen-game');
+  const stage = document.querySelector('#screen-game .stage');
+  stage.classList.remove('basic', 'spread', 'chaos');
+  stage.classList.add(style);
   seqPos = 0;
   $('progress-bar').style.width = '0%';
   runFlash();
@@ -205,6 +210,30 @@ function runFlash() {
   el.classList.remove('in', 'out');
   void el.offsetWidth;
   el.innerHTML = `<img src="${item.img}" alt="${item.label}">`;
+
+  // Position and size based on style
+  if (style === 'basic') {
+    el.style.top = '';
+    el.style.left = '';
+    el.style.width = '';
+    el.style.height = '';
+  } else {
+    const stage = document.querySelector('#screen-game .stage');
+    const sw = stage.clientWidth;
+    const sh = stage.clientHeight;
+    const baseSize = style === 'chaos'
+      ? Math.round(80 + Math.random() * (Math.min(sw, sh) * 0.45))
+      : Math.round(Math.min(sw, sh) * 0.28);
+    const maxX = sw - baseSize - 20;
+    const maxY = sh - baseSize - 20;
+    const x = 20 + Math.floor(Math.random() * Math.max(1, maxX));
+    const y = 40 + Math.floor(Math.random() * Math.max(1, maxY - 40));
+    el.style.width  = baseSize + 'px';
+    el.style.height = baseSize + 'px';
+    el.style.left   = x + 'px';
+    el.style.top    = y + 'px';
+  }
+
   el.classList.add('in');
 
   const t    = getTiming();
