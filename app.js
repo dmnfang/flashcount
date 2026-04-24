@@ -110,37 +110,42 @@ function buildSequence() {
     .sort(() => Math.random() - 0.5)
     .slice(0, distractors);
 
-  // When count lands in the bottom third of the range, boost distractor frequency
-  const rangeBand = rangeMax - rangeMin;
-  const isLowCount = targetCount < rangeMin + Math.ceil(rangeBand / 3);
-  const distractorEvery = isLowCount ? 1 : (2 + Math.floor(Math.random()));
-
-  const distractorItems = [];
-  const totalDistractors = Math.max(pool.length, Math.floor(targetCount / distractorEvery));
-  for (let i = 0; i < totalDistractors; i++) {
-    distractorItems.push({ ...pool[i % pool.length], isTarget: false });
-  }
-  distractorItems.sort(() => Math.random() - 0.5);
-
   const targets = Array.from({ length: targetCount }, () => ({ ...selectedObj, isTarget: true }));
+
+  // Build a distractor supply — roughly one per 2-4 targets
+  const distractorSupply = [];
+  const totalDistractors = Math.max(2, Math.floor(targetCount / (2 + Math.random() * 2)));
+  for (let i = 0; i < totalDistractors; i++) {
+    distractorSupply.push({ ...pool[i % pool.length], isTarget: false });
+  }
+  distractorSupply.sort(() => Math.random() - 0.5);
+
+  // Build sequence with natural runs
   sequence = [];
-  let ti = 0, di = 0, sinceLastDistractor = 0;
+  let ti = 0;
+  let di = 0;
+  let consecutiveDistractors = 0;
 
-  while (ti < targets.length || di < distractorItems.length) {
-    const canInsert =
-      di < distractorItems.length &&
-      sinceLastDistractor >= distractorEvery &&
-      sequence.length > 0 &&
-      ti < targets.length;
+  while (ti < targets.length) {
+    // Weighted run lengths: 1(rare), 2(common), 3(common), 4(less common), 5(rare)
+    const weights = [1, 3, 3, 2, 1];
+    const total = weights.reduce((a, b) => a + b, 0);
+    let rand = Math.random() * total;
+    let runLength = 1;
+    for (let w = 0; w < weights.length; w++) {
+      rand -= weights[w];
+      if (rand <= 0) { runLength = w + 1; break; }
+    }
 
-    if (canInsert) {
-      sequence.push(distractorItems[di++]);
-      sinceLastDistractor = 0;
-    } else if (ti < targets.length) {
+    for (let r = 0; r < runLength && ti < targets.length; r++) {
       sequence.push(targets[ti++]);
-      sinceLastDistractor++;
-    } else {
-      sequence.splice(sequence.length - 1, 0, distractorItems[di++]);
+    }
+
+    if (di < distractorSupply.length && ti < targets.length) {
+      sequence.push(distractorSupply[di++]);
+      if (di < distractorSupply.length && ti < targets.length && Math.random() < 0.3) {
+        sequence.push(distractorSupply[di++]);
+      }
     }
   }
 }
