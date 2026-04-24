@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flashcount</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- HOME SCREEN -->
+  <div id="screen-home" class="screen active">
+    <header class="topbar">
+      <div class="wordmark">
+        <span class="wordmark-star">✦</span>
+        FLASHCOUNT
+      </div>
+    </header>
+    <div class="home-layout">
+      <!-- Left: Object grid -->
+      <div class="panel panel-left">
+        <div class="section-label">OBJECT</div>
+        <div class="object-grid" id="object-grid"></div>
+      </div>
+      <!-- Right: Options + Start -->
+      <div class="panel panel-right">
+        <div class="options-block">
+          <div class="section-label">DISTRACTORS</div>
+          <div class="chip-row" id="distractor-chips">
+            <button class="chip selected" data-val="1">1</button>
+            <button class="chip" data-val="2">2</button>
+            <button class="chip" data-val="3">3</button>
+            <button class="chip" data-val="4">4</button>
+          </div>
+        </div>
+        <div class="options-block">
+          <div class="section-label">NUMBER RANGE</div>
+          <div class="chip-row" id="range-chips">
+            <button class="chip selected" data-min="1" data-max="10">1–10</button>
+            <button class="chip" data-min="10" data-max="20">10–20</button>
+            <button class="chip" data-min="20" data-max="30">20–30</button>
+          </div>
+        </div>
+        <div class="options-block">
+          <div class="section-label">SPEED</div>
+          <div class="chip-row" id="speed-chips">
+            <button class="chip selected" data-val="slow">Slow</button>
+            <button class="chip" data-val="normal">Normal</button>
+            <button class="chip" data-val="fast">Fast</button>
+            <button class="chip" data-val="mixed">Mixed</button>
+          </div>
+        </div>
+        <button class="btn-start" id="btn-start" disabled>START</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PREVIEW SCREEN -->
+  <div id="screen-preview" class="screen">
+    <header class="topbar">
+      <div class="wordmark">
+        <span class="wordmark-star">✦</span>
+        FLASHCOUNT
+      </div>
+    </header>
+    <div class="stage">
+      <div class="preview-object" id="preview-object"></div>
+      <div class="preview-text" id="preview-text"></div>
+    </div>
+  </div>
+
+  <!-- COUNTDOWN SCREEN -->
+  <div id="screen-countdown" class="screen">
+    <header class="topbar">
+      <div class="wordmark">
+        <span class="wordmark-star">✦</span>
+        FLASHCOUNT
+      </div>
+    </header>
+    <div class="stage">
+      <div class="countdown-text" id="countdown-text">Ready?</div>
+    </div>
+  </div>
+
+  <!-- GAME SCREEN -->
+  <div id="screen-game" class="screen">
+    <header class="topbar">
+      <div class="wordmark">
+        <span class="wordmark-star">✦</span>
+        FLASHCOUNT
+      </div>
+    </header>
+    <div class="stage">
+      <div class="progress-wrap">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+      <div class="flash-object" id="flash-object"></div>
+    </div>
+  </div>
+
+  <!-- QUESTION SCREEN -->
+  <div id="screen-question" class="screen">
+    <header class="topbar">
+      <div class="wordmark">
+        <span class="wordmark-star">✦</span>
+        FLASHCOUNT
+      </div>
+    </header>
+    <div class="stage">
+      <div class="question-object" id="question-object"></div>
+      <div class="question-text" id="question-text"></div>
+      <button class="btn-answer" id="btn-show-answer">SHOW ANSWER</button>
+    </div>
+  </div>
+
+  <!-- ANSWER SCREEN -->
+  <div id="screen-answer" class="screen">
+    <header class="topbar">
+      <div class="wordmark">
+        <span class="wordmark-star">✦</span>
+        FLASHCOUNT
+      </div>
+    </header>
+    <div class="stage">
+      <div class="answer-display" id="answer-display"></div>
+      <button class="btn-home" id="btn-home">HOME</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

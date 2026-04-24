@@ -1,0 +1,385 @@
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #12111A;
+  --surface:   #1C1A2E;
+  --surface2:  #242038;
+  --border:    #2E2B44;
+  --purple:    #7B5CE5;
+  --purple-dim:#4A3A8A;
+  --gold:      #F5C842;
+  --gold-dim:  #A07A10;
+  --muted:     #6B68A8;
+  --white:     #F5F4FF;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'Nunito', sans-serif;
+  overflow: hidden;
+}
+
+/* ── Screens ── */
+.screen {
+  display: none;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+}
+.screen.active { display: flex; }
+
+/* ── Topbar ── */
+.topbar {
+  padding: 24px 24px 0;
+  flex-shrink: 0;
+}
+
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--gold);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.wordmark-star {
+  font-size: 18px;
+  color: var(--gold);
+}
+
+/* ── Home Layout ── */
+.home-layout {
+  display: flex;
+  gap: 24px;
+  padding: 24px;
+  flex: 1;
+  min-height: 0;
+}
+
+.panel {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-left {
+  flex: 6;
+  gap: 10px;
+  align-self: stretch;
+}
+
+.panel-right {
+  flex: 4;
+  gap: 24px;
+  justify-content: space-between;
+}
+
+/* ── Section Label ── */
+.section-label {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  line-height: 24px;
+}
+
+/* ── Object Grid ── */
+.object-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.obj-slot {
+  aspect-ratio: 1;
+  background: var(--surface2);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  padding: 8px;
+  position: relative;
+}
+
+.obj-slot:hover {
+  border-color: var(--purple-dim);
+}
+
+.obj-slot.selected {
+  border-color: var(--gold);
+  background: #221B40;
+}
+
+.obj-img {
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+}
+
+/* ── Options Block ── */
+.options-block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.options-block .chip-row + .chip-row {
+  margin-top: -2px;
+}
+
+/* ── Chips ── */
+.chip-row {
+  display: flex;
+  gap: 16px;
+}
+
+.chip {
+  flex: 1;
+  padding: 10px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--surface2);
+  border: 2px solid var(--border);
+  color: var(--muted);
+  font-family: 'Nunito', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+  text-align: center;
+}
+
+.chip:hover {
+  border-color: var(--purple-dim);
+  color: var(--white);
+}
+
+.chip.selected {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: #221B10;
+}
+
+/* ── Start Button ── */
+.btn-start {
+  width: 100%;
+  padding: 18px;
+  border-radius: var(--radius-md);
+  background: var(--gold);
+  border: none;
+  font-family: 'Nunito', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--bg);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+  margin-top: auto;
+}
+
+.btn-start:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: scale(1.01);
+}
+
+.btn-start:disabled {
+  background: var(--surface2);
+  color: var(--muted);
+  cursor: not-allowed;
+}
+
+/* ── Stage (shared by countdown/game/question/answer) ── */
+.stage {
+  flex: 1;
+  margin: 24px;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Preview Screen ── */
+.preview-object {
+  width: clamp(140px, 22vw, 280px);
+  height: clamp(140px, 22vw, 280px);
+  margin-bottom: 32px;
+}
+
+.preview-object img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.preview-text {
+  font-size: clamp(28px, 5vw, 56px);
+  font-weight: 800;
+  color: var(--white);
+  text-align: center;
+}
+
+.preview-text span {
+  color: var(--gold);
+}
+
+/* ── Countdown ── */
+.countdown-text {
+  font-size: clamp(120px, 24vw, 280px);
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1;
+  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.countdown-text.ready {
+  font-size: clamp(72px, 14vw, 180px);
+}
+
+@keyframes popIn {
+  from { transform: scale(0.4); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+/* ── Progress Bar ── */
+.progress-wrap {
+  position: absolute;
+  top: 20px;
+  left: 24px;
+  right: 24px;
+  height: 8px;
+  background: var(--surface2);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: var(--purple);
+  border-radius: 4px;
+  transition: width 0.1s linear;
+}
+
+/* ── Flash Object ── */
+.flash-object {
+  width: clamp(160px, 30vw, 360px);
+  height: clamp(160px, 30vw, 360px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flash-object img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@keyframes flashIn {
+  from { transform: scale(0.3) rotate(-6deg); opacity: 0; }
+  to   { transform: scale(1)   rotate(0deg);  opacity: 1; }
+}
+
+@keyframes flashOut {
+  from { transform: scale(1); opacity: 1; }
+  to   { transform: scale(0.5); opacity: 0; }
+}
+
+.flash-object.in  { animation: flashIn  0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.flash-object.out { animation: flashOut 0.14s ease-in forwards; }
+
+/* ── Question Screen ── */
+.question-object {
+  width: clamp(60px, 8vw, 100px);
+  height: clamp(60px, 8vw, 100px);
+  margin-bottom: 16px;
+}
+
+.question-object img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.question-text {
+  font-size: clamp(32px, 6vw, 64px);
+  font-weight: 800;
+  color: var(--white);
+  text-align: center;
+  line-height: 1.2;
+  margin-bottom: 40px;
+  padding: 0 40px;
+}
+
+.btn-answer {
+  padding: 16px 48px;
+  border-radius: var(--radius-md);
+  background: var(--gold);
+  border: none;
+  font-family: 'Nunito', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--bg);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+}
+
+.btn-answer:hover {
+  opacity: 0.9;
+  transform: scale(1.02);
+}
+
+/* ── Answer Screen ── */
+.answer-display {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  font-size: clamp(100px, 20vw, 240px);
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 40px;
+  animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn-home {
+  padding: 16px 48px;
+  border-radius: var(--radius-md);
+  background: var(--gold);
+  border: none;
+  font-family: 'Nunito', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--bg);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+}
+
+.btn-home:hover {
+  opacity: 0.9;
+  transform: scale(1.02);
+}
