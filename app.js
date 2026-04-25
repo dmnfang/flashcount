@@ -95,11 +95,28 @@ $('btn-start').addEventListener('click', () => {
   showPreview();
 });
 
+function pluralize(label) {
+  const l = label.toLowerCase();
+  if (l === 'peach') return 'peaches';
+  if (l === 'orange') return 'oranges';
+  if (l === 'apple') return 'apples';
+  if (l === 'banana') return 'bananas';
+  if (l === 'soccer ball') return 'soccer balls';
+  if (l === 'baseball') return 'baseballs';
+  if (l === 'basketball') return 'basketballs';
+  if (l === 'pencil') return 'pencils';
+  if (l === 'eraser') return 'erasers';
+  if (l === 'crayon') return 'crayons';
+  // fallback
+  return l + 's';
+}
+
 function showPreview() {
   showScreen('screen-preview');
   const label = selectedObj.label.toLowerCase();
+  const plural = pluralize(label);
   $('preview-object').innerHTML = `<img src="${selectedObj.img}" alt="${label}">`;
-  $('preview-text').innerHTML = `Let's count <span>${label}s!</span>`;
+  $('preview-text').innerHTML = `Let's count <span>${plural}!</span>`;
   setTimeout(runCountdown, 2200);
 }
 
@@ -255,9 +272,10 @@ function runFlash() {
 // ── Question ──────────────────────────────────────────────
 function showQuestion() {
   const label = selectedObj.label.toLowerCase();
+  const plural = pluralize(label);
   showScreen('screen-question');
   $('question-object').innerHTML = `<img src="${selectedObj.img}" alt="${label}">`;
-  $('question-text').textContent = `How many ${label}s?`;
+  $('question-text').textContent = `How many ${plural}?`;
 }
 
 $('btn-show-answer').addEventListener('click', showAnswer);
