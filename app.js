@@ -46,6 +46,36 @@ function getTiming() {
   return SPEEDS[speed];
 }
 
+// ── Fullscreen ────────────────────────────────────────────
+const ICON_ENTER = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M1 6V1H6M10 1H15V6M15 10V15H10M6 15H1V10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`;
+
+const ICON_EXIT = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M6 1V6H1M15 6H10V1M10 15V10H15M1 10H6V15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`;
+
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(() => {});
+  } else {
+    document.exitFullscreen().catch(() => {});
+  }
+}
+
+document.querySelectorAll('.fullscreen-btn').forEach(btn => {
+  btn.innerHTML = ICON_ENTER;
+  btn.addEventListener('click', toggleFullscreen);
+});
+
+document.addEventListener('fullscreenchange', () => {
+  const icon = document.fullscreenElement ? ICON_EXIT : ICON_ENTER;
+  document.querySelectorAll('.fullscreen-btn').forEach(btn => {
+    btn.innerHTML = icon;
+    btn.classList.toggle('is-fullscreen', !!document.fullscreenElement);
+  });
+});
+
 // ── Build object grid ─────────────────────────────────────
 const grid = $('object-grid');
 OBJECTS.forEach(obj => {
@@ -239,8 +269,8 @@ function runFlash() {
     const sw = stage.clientWidth;
     const sh = stage.clientHeight;
     const baseSize = style === 'chaos'
-      ? Math.round(80 + Math.random() * (Math.min(sw, sh) * 0.45))
-      : Math.round(Math.min(sw, sh) * 0.28);
+      ? Math.round(100 + Math.random() * (Math.min(sw, sh) * 0.55))
+      : Math.round(Math.min(sw, sh) * 0.38);
     const maxX = sw - baseSize - 20;
     const maxY = sh - baseSize - 20;
     const x = 20 + Math.floor(Math.random() * Math.max(1, maxX));

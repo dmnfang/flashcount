@@ -38,6 +38,9 @@ html, body {
 .topbar {
   padding: 24px 24px 0;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .wordmark {
@@ -49,10 +52,38 @@ html, body {
   color: var(--gold);
   letter-spacing: 3px;
   text-transform: uppercase;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-family: 'Nunito', sans-serif;
+  transition: opacity 0.15s;
 }
+
+.wordmark:hover { opacity: 0.8; }
 
 .wordmark-star {
   font-size: 18px;
+  color: var(--gold);
+}
+
+.fullscreen-btn {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--muted);
+  font-size: 18px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.fullscreen-btn:hover {
+  border-color: var(--gold);
   color: var(--gold);
 }
 
@@ -282,8 +313,8 @@ html, body {
 
 /* ── Flash Object ── */
 .flash-object {
-  width: clamp(160px, 30vw, 360px);
-  height: clamp(160px, 30vw, 360px);
+  width: clamp(220px, 42vw, 520px);
+  height: clamp(220px, 42vw, 520px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -301,6 +332,8 @@ html, body {
 .stage.basic .flash-object {
   position: relative;
   top: auto; left: auto;
+  width: clamp(220px, 42vw, 520px);
+  height: clamp(220px, 42vw, 520px);
 }
 
 @keyframes flashIn {

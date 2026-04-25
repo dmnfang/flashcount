@@ -13,10 +13,11 @@
   <!-- HOME SCREEN -->
   <div id="screen-home" class="screen active">
     <header class="topbar">
-      <div class="wordmark">
+      <button class="wordmark" id="home-logo">
         <span class="wordmark-star">✦</span>
         FLASHCOUNT
-      </div>
+      </button>
+      <button class="fullscreen-btn" id="fullscreen-btn-home">⛶</button>
     </header>
     <div class="home-layout">
       <!-- Left: Object grid -->
@@ -68,10 +69,11 @@
   <!-- PREVIEW SCREEN -->
   <div id="screen-preview" class="screen">
     <header class="topbar">
-      <div class="wordmark">
+      <button class="wordmark" onclick="showScreen('screen-home')">
         <span class="wordmark-star">✦</span>
         FLASHCOUNT
-      </div>
+      </button>
+      <button class="fullscreen-btn" id="fullscreen-btn-preview">⛶</button>
     </header>
     <div class="stage">
       <div class="preview-object" id="preview-object"></div>
@@ -82,10 +84,11 @@
   <!-- COUNTDOWN SCREEN -->
   <div id="screen-countdown" class="screen">
     <header class="topbar">
-      <div class="wordmark">
+      <button class="wordmark" onclick="showScreen('screen-home')">
         <span class="wordmark-star">✦</span>
         FLASHCOUNT
-      </div>
+      </button>
+      <button class="fullscreen-btn" id="fullscreen-btn-countdown">⛶</button>
     </header>
     <div class="stage">
       <div class="countdown-text" id="countdown-text">Ready?</div>
@@ -95,10 +98,11 @@
   <!-- GAME SCREEN -->
   <div id="screen-game" class="screen">
     <header class="topbar">
-      <div class="wordmark">
+      <button class="wordmark" onclick="showScreen('screen-home')">
         <span class="wordmark-star">✦</span>
         FLASHCOUNT
-      </div>
+      </button>
+      <button class="fullscreen-btn" id="fullscreen-btn-game">⛶</button>
     </header>
     <div class="stage">
       <div class="progress-wrap">
@@ -111,10 +115,11 @@
   <!-- QUESTION SCREEN -->
   <div id="screen-question" class="screen">
     <header class="topbar">
-      <div class="wordmark">
+      <button class="wordmark" onclick="showScreen('screen-home')">
         <span class="wordmark-star">✦</span>
         FLASHCOUNT
-      </div>
+      </button>
+      <button class="fullscreen-btn" id="fullscreen-btn-question">⛶</button>
     </header>
     <div class="stage">
       <div class="question-object" id="question-object"></div>
@@ -126,10 +131,11 @@
   <!-- ANSWER SCREEN -->
   <div id="screen-answer" class="screen">
     <header class="topbar">
-      <div class="wordmark">
+      <button class="wordmark" onclick="showScreen('screen-home')">
         <span class="wordmark-star">✦</span>
         FLASHCOUNT
-      </div>
+      </button>
+      <button class="fullscreen-btn" id="fullscreen-btn-answer">⛶</button>
     </header>
     <div class="stage">
       <div class="answer-display" id="answer-display"></div>
