@@ -108,6 +108,7 @@ html, body {
   flex: 6;
   gap: 10px;
   align-self: stretch;
+  overflow-y: auto;
 }
 
 .panel-right {
@@ -129,7 +130,7 @@ html, body {
 /* ── Object Grid ── */
 .object-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 16px;
 }
 
