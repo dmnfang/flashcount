@@ -13,9 +13,9 @@ const OBJECTS = [
 
 // ── Speed timings (show ms, gap ms) ──────────────────────
 const SPEEDS = {
-  slow:   { show: [550, 150], gap: [400, 150] },
-  normal: { show: [350, 100], gap: [280, 100] },
-  fast:   { show: [180, 80],  gap: [160, 80]  },
+  slow:   { show: [470, 130], gap: [340, 130] },
+  normal: { show: [300, 85],  gap: [240, 85]  },
+  fast:   { show: [150, 70],  gap: [135, 70]  },
   mixed:  null,
 };
 
