@@ -13,10 +13,10 @@ const OBJECTS = [
 
 // ── Speed timings (show ms, gap ms) ──────────────────────
 const SPEEDS = {
-  slow:   { show: [470, 130], gap: [340, 130] },
-  normal: { show: [300, 85],  gap: [240, 85]  },
-  fast:   { show: [150, 70],  gap: [135, 70]  },
-  mixed:  null,
+  slow:     { show: [470, 130], gap: [340, 130] },
+  normal:   { show: [300, 85],  gap: [240, 85]  },
+  fast:     { show: [150, 70],  gap: [135, 70]  },
+  veryfast: { show: [70, 30],   gap: [60, 30]   },
 };
 
 // ── State ─────────────────────────────────────────────────
@@ -39,10 +39,6 @@ function showScreen(id) {
 }
 
 function getTiming() {
-  if (speed === 'mixed') {
-    const keys = ['slow', 'normal', 'fast'];
-    return SPEEDS[keys[Math.floor(Math.random() * keys.length)]];
-  }
   return SPEEDS[speed];
 }
 
@@ -137,7 +133,6 @@ function pluralize(label) {
   if (l === 'pencil') return 'pencils';
   if (l === 'eraser') return 'erasers';
   if (l === 'crayon') return 'crayons';
-  // fallback
   return l + 's';
 }
 
@@ -151,7 +146,6 @@ function showPreview() {
 }
 
 function buildSequence() {
-  // Bias toward upper end — take the higher of two random rolls
   const roll = () => rangeMin + Math.floor(Math.random() * (rangeMax - rangeMin + 1));
   targetCount = Math.max(roll(), roll());
 
@@ -161,7 +155,6 @@ function buildSequence() {
 
   const targets = Array.from({ length: targetCount }, () => ({ ...selectedObj, isTarget: true }));
 
-  // Build a distractor supply — roughly one per 2-4 targets
   const distractorSupply = [];
   const totalDistractors = Math.max(2, Math.floor(targetCount / (2 + Math.random() * 2)));
   for (let i = 0; i < totalDistractors; i++) {
@@ -169,14 +162,11 @@ function buildSequence() {
   }
   distractorSupply.sort(() => Math.random() - 0.5);
 
-  // Build sequence with natural runs
   sequence = [];
   let ti = 0;
   let di = 0;
-  let consecutiveDistractors = 0;
 
   while (ti < targets.length) {
-    // Weighted run lengths: 1(rare), 2(common), 3(common), 4(less common), 5(rare)
     const weights = [1, 3, 3, 2, 1];
     const total = weights.reduce((a, b) => a + b, 0);
     let rand = Math.random() * total;
@@ -258,7 +248,6 @@ function runFlash() {
   void el.offsetWidth;
   el.innerHTML = `<img src="${item.img}" alt="${item.label}">`;
 
-  // Position and size based on style
   if (style === 'basic') {
     el.style.top = '';
     el.style.left = '';
