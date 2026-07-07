@@ -113,8 +113,19 @@ html, body {
 
 .panel-right {
   flex: 4;
+  gap: 16px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.panel-right-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
   gap: 24px;
-  justify-content: space-between;
+  padding-right: 4px;
 }
 
 /* ── Section Label ── */
@@ -168,6 +179,7 @@ html, body {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  flex-shrink: 0;
 }
 
 .options-block .chip-row + .chip-row {
@@ -222,7 +234,7 @@ html, body {
   text-transform: uppercase;
   cursor: pointer;
   transition: opacity 0.15s, transform 0.1s;
-  margin-top: auto;
+  flex-shrink: 0;
 }
 
 .btn-start:hover:not(:disabled) {
