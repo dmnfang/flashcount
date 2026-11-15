@@ -91,12 +91,12 @@ OBJECTS.forEach(obj => {
   grid.appendChild(slot);
 });
 
-// ── Chip rows ─────────────────────────────────────────────
+// ── Toggle pill rows ──────────────────────────────────────
 function setupChips(rowId, callback) {
-  document.querySelectorAll(`#${rowId} .chip`).forEach(chip => {
+  document.querySelectorAll(`#${rowId} .toggle-pill`).forEach(chip => {
     chip.addEventListener('click', () => {
-      document.querySelectorAll(`#${rowId} .chip`).forEach(c => c.classList.remove('selected'));
-      chip.classList.add('selected');
+      document.querySelectorAll(`#${rowId} .toggle-pill`).forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
       callback(chip.dataset.val);
     });
   });
@@ -106,10 +106,10 @@ setupChips('distractor-chips', val => distractors = parseInt(val));
 setupChips('speed-chips',      val => speed = val);
 setupChips('style-chips',      val => style = val);
 
-document.querySelectorAll('#range-chips .chip').forEach(chip => {
+document.querySelectorAll('#range-chips .toggle-pill').forEach(chip => {
   chip.addEventListener('click', () => {
-    document.querySelectorAll('#range-chips .chip').forEach(c => c.classList.remove('selected'));
-    chip.classList.add('selected');
+    document.querySelectorAll('#range-chips .toggle-pill').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
     rangeMin = parseInt(chip.dataset.min);
     rangeMax = parseInt(chip.dataset.max);
   });
@@ -305,7 +305,7 @@ function showAnswer() {
   const el = $('answer-display');
   el.innerHTML = `
     <span>${targetCount}</span>
-    <img src="${selectedObj.img}" alt="${selectedObj.label.toLowerCase()}" style="height:0.75em; width:auto;">
+    <img src="${selectedObj.img}" alt="${selectedObj.label.toLowerCase()}">
   `;
 }
 

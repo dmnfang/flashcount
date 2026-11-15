@@ -1,82 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Flashcount</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Lexend:wght@700;800&family=Nunito:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="src/styles.css">
 </head>
 <body>
 
-  <!-- HOME SCREEN -->
-  <div id="screen-home" class="screen active">
-    <header class="topbar">
-      <button class="wordmark" id="home-logo">
-        <span class="wordmark-star">✦</span>
-        FLASHCOUNT
-      </button>
-      <button class="fullscreen-btn" id="fullscreen-btn-home"></button>
+  <!-- HOME / SETUP SCREEN -->
+  <div id="screen-home" class="screen setup-screen active">
+    <header class="app-header">
+      <h1 class="brand-name">Flashcount</h1>
+      <button class="nav-btn fullscreen-btn" id="fullscreen-btn-home" aria-label="Toggle fullscreen"></button>
     </header>
-    <div class="home-layout">
-      <!-- Left: Object grid -->
-      <div class="panel panel-left">
-        <div class="section-label">OBJECT</div>
+    <div class="setup-body">
+
+      <section class="setup-panel setup-panel-object">
+        <h2 class="panel-title">Object</h2>
         <div class="object-grid" id="object-grid"></div>
-      </div>
-      <!-- Right: Options + Start -->
-      <div class="panel panel-right">
-        <div class="panel-right-scroll">
-          <div class="options-block">
-            <div class="section-label">DISTRACTORS</div>
-            <div class="chip-row" id="distractor-chips">
-              <button class="chip selected" data-val="1">1</button>
-              <button class="chip" data-val="2">2</button>
-              <button class="chip" data-val="3">3</button>
-              <button class="chip" data-val="4">4</button>
+      </section>
+
+      <section class="setup-panel setup-panel-settings">
+        <h2 class="panel-title">Settings</h2>
+        <div class="settings-scroll">
+          <div class="settings-block">
+            <div class="settings-label">Distractors</div>
+            <div class="toggle-group" id="distractor-chips">
+              <button class="toggle-pill active" data-val="1">1</button>
+              <button class="toggle-pill" data-val="2">2</button>
+              <button class="toggle-pill" data-val="3">3</button>
+              <button class="toggle-pill" data-val="4">4</button>
             </div>
           </div>
-          <div class="options-block">
-            <div class="section-label">NUMBER RANGE</div>
-            <div class="chip-row" id="range-chips">
-              <button class="chip selected" data-min="1" data-max="10">1–10</button>
-              <button class="chip" data-min="10" data-max="20">10–20</button>
-              <button class="chip" data-min="20" data-max="30">20–30</button>
+          <div class="settings-block">
+            <div class="settings-label">Number range</div>
+            <div class="toggle-group" id="range-chips">
+              <button class="toggle-pill active" data-min="1" data-max="10">1–10</button>
+              <button class="toggle-pill" data-min="10" data-max="20">10–20</button>
+              <button class="toggle-pill" data-min="20" data-max="30">20–30</button>
             </div>
           </div>
-          <div class="options-block">
-            <div class="section-label">SPEED</div>
-            <div class="chip-row" id="speed-chips">
-              <button class="chip selected" data-val="slow">Slow</button>
-              <button class="chip" data-val="normal">Normal</button>
-              <button class="chip" data-val="fast">Fast</button>
-              <button class="chip" data-val="veryfast">Very fast</button>
+          <div class="settings-block">
+            <div class="settings-label">Speed</div>
+            <div class="toggle-group" id="speed-chips">
+              <button class="toggle-pill active" data-val="slow">Slow</button>
+              <button class="toggle-pill" data-val="normal">Normal</button>
+              <button class="toggle-pill" data-val="fast">Fast</button>
+              <button class="toggle-pill" data-val="veryfast">Very fast</button>
             </div>
           </div>
-          <div class="options-block">
-            <div class="section-label">STYLE</div>
-            <div class="chip-row" id="style-chips">
-              <button class="chip selected" data-val="basic">Basic</button>
-              <button class="chip" data-val="spread">Spread</button>
-              <button class="chip" data-val="chaos">Chaos</button>
+          <div class="settings-block">
+            <div class="settings-label">Style</div>
+            <div class="toggle-group" id="style-chips">
+              <button class="toggle-pill active" data-val="basic">Basic</button>
+              <button class="toggle-pill" data-val="spread">Spread</button>
+              <button class="toggle-pill" data-val="chaos">Chaos</button>
             </div>
           </div>
         </div>
-        <button class="btn-start" id="btn-start" disabled>START</button>
-      </div>
+        <button class="launch-btn" id="btn-start" disabled>Start</button>
+      </section>
+
     </div>
   </div>
 
   <!-- PREVIEW SCREEN -->
-  <div id="screen-preview" class="screen">
-    <header class="topbar">
-      <button class="wordmark" onclick="showScreen('screen-home')">
-        <span class="wordmark-star">✦</span>
-        FLASHCOUNT
-      </button>
-      <button class="fullscreen-btn" id="fullscreen-btn-preview"></button>
-    </header>
+  <div id="screen-preview" class="screen mode-screen">
+    <div class="mode-topbar">
+      <button class="nav-btn" onclick="showScreen('screen-home')">Home</button>
+      <button class="nav-btn fullscreen-btn" id="fullscreen-btn-preview" aria-label="Toggle fullscreen"></button>
+    </div>
     <div class="stage">
       <div class="preview-object" id="preview-object"></div>
       <div class="preview-text" id="preview-text"></div>
@@ -84,28 +81,22 @@
   </div>
 
   <!-- COUNTDOWN SCREEN -->
-  <div id="screen-countdown" class="screen">
-    <header class="topbar">
-      <button class="wordmark" onclick="showScreen('screen-home')">
-        <span class="wordmark-star">✦</span>
-        FLASHCOUNT
-      </button>
-      <button class="fullscreen-btn" id="fullscreen-btn-countdown"></button>
-    </header>
+  <div id="screen-countdown" class="screen mode-screen">
+    <div class="mode-topbar">
+      <button class="nav-btn" onclick="showScreen('screen-home')">Home</button>
+      <button class="nav-btn fullscreen-btn" id="fullscreen-btn-countdown" aria-label="Toggle fullscreen"></button>
+    </div>
     <div class="stage">
       <div class="countdown-text" id="countdown-text">Ready?</div>
     </div>
   </div>
 
   <!-- GAME SCREEN -->
-  <div id="screen-game" class="screen">
-    <header class="topbar">
-      <button class="wordmark" onclick="showScreen('screen-home')">
-        <span class="wordmark-star">✦</span>
-        FLASHCOUNT
-      </button>
-      <button class="fullscreen-btn" id="fullscreen-btn-game"></button>
-    </header>
+  <div id="screen-game" class="screen mode-screen">
+    <div class="mode-topbar">
+      <button class="nav-btn" onclick="showScreen('screen-home')">Home</button>
+      <button class="nav-btn fullscreen-btn" id="fullscreen-btn-game" aria-label="Toggle fullscreen"></button>
+    </div>
     <div class="stage">
       <div class="progress-wrap">
         <div class="progress-bar" id="progress-bar"></div>
@@ -115,34 +106,28 @@
   </div>
 
   <!-- QUESTION SCREEN -->
-  <div id="screen-question" class="screen">
-    <header class="topbar">
-      <button class="wordmark" onclick="showScreen('screen-home')">
-        <span class="wordmark-star">✦</span>
-        FLASHCOUNT
-      </button>
-      <button class="fullscreen-btn" id="fullscreen-btn-question"></button>
-    </header>
+  <div id="screen-question" class="screen mode-screen">
+    <div class="mode-topbar">
+      <button class="nav-btn" onclick="showScreen('screen-home')">Home</button>
+      <button class="nav-btn fullscreen-btn" id="fullscreen-btn-question" aria-label="Toggle fullscreen"></button>
+    </div>
     <div class="stage">
       <div class="question-object" id="question-object"></div>
       <div class="question-text" id="question-text"></div>
-      <button class="btn-answer" id="btn-show-answer">SHOW ANSWER</button>
     </div>
+    <button class="launch-btn" id="btn-show-answer">Show answer</button>
   </div>
 
   <!-- ANSWER SCREEN -->
-  <div id="screen-answer" class="screen">
-    <header class="topbar">
-      <button class="wordmark" onclick="showScreen('screen-home')">
-        <span class="wordmark-star">✦</span>
-        FLASHCOUNT
-      </button>
-      <button class="fullscreen-btn" id="fullscreen-btn-answer"></button>
-    </header>
+  <div id="screen-answer" class="screen mode-screen">
+    <div class="mode-topbar">
+      <button class="nav-btn" onclick="showScreen('screen-home')">Home</button>
+      <button class="nav-btn fullscreen-btn" id="fullscreen-btn-answer" aria-label="Toggle fullscreen"></button>
+    </div>
     <div class="stage">
       <div class="answer-display" id="answer-display"></div>
-      <button class="btn-home" id="btn-home">HOME</button>
     </div>
+    <button class="launch-btn" id="btn-home">Home</button>
   </div>
 
   <script src="app.js"></script>
