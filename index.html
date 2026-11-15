@@ -61,6 +61,13 @@
               <button class="toggle-pill" data-val="chaos">Chaos</button>
             </div>
           </div>
+          <div class="settings-block">
+            <div class="settings-label">Sound</div>
+            <div class="toggle-group" id="sound-chips">
+              <button class="toggle-pill active" data-val="on">On</button>
+              <button class="toggle-pill" data-val="off">Off</button>
+            </div>
+          </div>
         </div>
         <button class="launch-btn" id="btn-start" disabled>Start</button>
       </section>
@@ -71,7 +78,7 @@
   <!-- PREVIEW SCREEN -->
   <div id="screen-preview" class="screen mode-screen">
     <div class="mode-topbar">
-      <button class="nav-btn" onclick="showScreen('screen-home')">Home</button>
+      <button class="nav-btn" data-sound="close" onclick="showScreen('screen-home')">Home</button>
       <button class="nav-btn fullscreen-btn" id="fullscreen-btn-preview" aria-label="Toggle fullscreen"></button>
     </div>
     <div class="stage">
@@ -83,7 +90,7 @@
   <!-- COUNTDOWN SCREEN -->
   <div id="screen-countdown" class="screen mode-screen">
     <div class="mode-topbar">
-      <button class="nav-btn" onclick="showScreen('screen-home')">Home</button>
+      <button class="nav-btn" data-sound="close" onclick="showScreen('screen-home')">Home</button>
       <button class="nav-btn fullscreen-btn" id="fullscreen-btn-countdown" aria-label="Toggle fullscreen"></button>
     </div>
     <div class="stage">
@@ -94,7 +101,7 @@
   <!-- GAME SCREEN -->
   <div id="screen-game" class="screen mode-screen">
     <div class="mode-topbar">
-      <button class="nav-btn" onclick="showScreen('screen-home')">Home</button>
+      <button class="nav-btn" data-sound="close" onclick="showScreen('screen-home')">Home</button>
       <button class="nav-btn fullscreen-btn" id="fullscreen-btn-game" aria-label="Toggle fullscreen"></button>
     </div>
     <div class="stage">
@@ -108,28 +115,29 @@
   <!-- QUESTION SCREEN -->
   <div id="screen-question" class="screen mode-screen">
     <div class="mode-topbar">
-      <button class="nav-btn" onclick="showScreen('screen-home')">Home</button>
+      <button class="nav-btn" data-sound="close" onclick="showScreen('screen-home')">Home</button>
       <button class="nav-btn fullscreen-btn" id="fullscreen-btn-question" aria-label="Toggle fullscreen"></button>
     </div>
     <div class="stage">
       <div class="question-object" id="question-object"></div>
       <div class="question-text" id="question-text"></div>
     </div>
-    <button class="launch-btn" id="btn-show-answer">Show answer</button>
+    <button class="launch-btn" id="btn-show-answer" data-sound="revealAll">Show answer</button>
   </div>
 
   <!-- ANSWER SCREEN -->
   <div id="screen-answer" class="screen mode-screen">
     <div class="mode-topbar">
-      <button class="nav-btn" onclick="showScreen('screen-home')">Home</button>
+      <button class="nav-btn" data-sound="close" onclick="showScreen('screen-home')">Home</button>
       <button class="nav-btn fullscreen-btn" id="fullscreen-btn-answer" aria-label="Toggle fullscreen"></button>
     </div>
     <div class="stage">
       <div class="answer-display" id="answer-display"></div>
     </div>
-    <button class="launch-btn" id="btn-home">Home</button>
+    <button class="launch-btn" id="btn-home" data-sound="close">Home</button>
   </div>
 
   <script src="app.js"></script>
+  <script type="module" src="src/sound.js"></script>
 </body>
 </html>

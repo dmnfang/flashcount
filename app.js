@@ -29,11 +29,30 @@ let style        = 'basic';
 let sequence     = [];
 let seqPos       = 0;
 let targetCount  = 0;
+let roundId      = 0;   // bumped to cancel every pending timer of the current round
 
 // ── Helpers ───────────────────────────────────────────────
 const $ = id => document.getElementById(id);
 
+// Sounds live in src/sound.js (a module, so it loads after this file). Click sounds are automatic there;
+// only the count-specific cues are called from here. Safe to call even if sound.js is missing.
+const sfx = name => window.sound && window.sound.cue(name);
+
+// Every timer in a round goes through later(); bumping roundId makes all of them no-ops.
+function later(fn, ms) {
+  const id = roundId;
+  setTimeout(() => { if (id === roundId) fn(); }, ms);
+}
+
+// Stop the current round dead: pending timers, and the object still on screen.
+function cancelRound() {
+  roundId++;
+  const el = document.getElementById('flash-object');
+  if (el) { el.classList.remove('in', 'out'); el.innerHTML = ''; }
+}
+
 function showScreen(id) {
+  if (id === 'screen-home') cancelRound();
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   $(id).classList.add('active');
 }
@@ -105,6 +124,7 @@ function setupChips(rowId, callback) {
 setupChips('distractor-chips', val => distractors = parseInt(val));
 setupChips('speed-chips',      val => speed = val);
 setupChips('style-chips',      val => style = val);
+setupChips('sound-chips',      val => window.sound && window.sound.setSfxOn(val === 'on'));
 
 document.querySelectorAll('#range-chips .toggle-pill').forEach(chip => {
   chip.addEventListener('click', () => {
@@ -117,6 +137,7 @@ document.querySelectorAll('#range-chips .toggle-pill').forEach(chip => {
 
 // ── Start ─────────────────────────────────────────────────
 $('btn-start').addEventListener('click', () => {
+  cancelRound();   // a double-tap on Start must not run two rounds
   buildSequence();
   showPreview();
 });
@@ -142,7 +163,7 @@ function showPreview() {
   const plural = pluralize(label);
   $('preview-object').innerHTML = `<img src="${selectedObj.img}" alt="${label}">`;
   $('preview-text').innerHTML = `Let's count <span>${plural}!</span>`;
-  setTimeout(runCountdown, 2200);
+  later(runCountdown, 2200);
 }
 
 function buildSequence() {
@@ -203,6 +224,7 @@ function runCountdown() {
     void el.offsetWidth;
     el.style.animation = 'popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
     el.textContent = steps[i];
+    sfx(i === steps.length - 1 ? 'go' : 'count');
 
     if (i === 0) {
       el.classList.add('ready');
@@ -212,9 +234,9 @@ function runCountdown() {
 
     i++;
     if (i < steps.length) {
-      setTimeout(tick, i === 1 ? 900 : 750);
+      later(tick, i === 1 ? 900 : 750);
     } else {
-      setTimeout(startGame, 600);
+      later(startGame, 600);
     }
   }
 
@@ -234,7 +256,7 @@ function startGame() {
 
 function runFlash() {
   if (seqPos >= sequence.length) {
-    setTimeout(showQuestion, 500);
+    later(showQuestion, 500);
     return;
   }
 
@@ -271,19 +293,20 @@ function runFlash() {
   }
 
   el.classList.add('in');
+  sfx('flash');
 
   const t    = getTiming();
   const show = t.show[0] + Math.random() * t.show[1];
   const gap  = t.gap[0]  + Math.random() * t.gap[1];
 
-  setTimeout(() => {
+  later(() => {
     el.classList.remove('in');
     el.classList.add('out');
-    setTimeout(() => {
+    later(() => {
       el.classList.remove('out');
       el.innerHTML = '';
       seqPos++;
-      setTimeout(runFlash, gap);
+      later(runFlash, gap);
     }, 140);
   }, show);
 }
